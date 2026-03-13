@@ -115,24 +115,26 @@
             padding: 24px 16px
         }
 
+        /* Smooth Tab Transitions */
         .tab-content {
             display: none;
-            animation: fadeIn .15s ease
         }
 
         .tab-content.active {
-            display: block
+            display: block;
+            /* Triggers the animation whenever the 'active' class is applied */
+            animation: fadeAndSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
-        @keyframes fadeIn {
-            from {
+        /* The Keyframes for the animation */
+        @keyframes fadeAndSlide {
+            0% {
                 opacity: 0;
-                transform: translateY(6px)
+                transform: translateY(15px);
             }
-
-            to {
+            100% {
                 opacity: 1;
-                transform: translateY(0)
+                transform: translateY(0);
             }
         }
 
