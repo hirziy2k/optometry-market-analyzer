@@ -630,6 +630,33 @@
             </ul>
         </div>
         <div id="market" class="tab-content active">
+                        <div class="grid-2">
+                <div class="card">
+                    <h2>📊 Global Optometry Market</h2>
+                    <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                        <div class="metric" style="flex: 1; margin-bottom: 0;">
+                            <div class="val">$65.8B</div>
+                            <div class="lbl">2026 Value</div>
+                        </div>
+                        <div class="metric" style="flex: 1; margin-bottom: 0;">
+                            <div class="val">$102.5B</div>
+                            <div class="lbl">2033 Value</div>
+                        </div>
+                    </div>
+                    <div style="position: relative; height: 250px; width: 100%;">
+                        <canvas id="marketGrowthChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>🌍 Regional Distribution</h2>
+                    <p class="subtitle" style="margin-bottom: 15px; font-size: 0.9rem;">Market share by region (Total: $65.8B)</p>
+                    <div style="position: relative; height: 280px; width: 100%; display: flex; justify-content: center;">
+                        <canvas id="regionalChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
                     <div class="implication"><strong>What this means:</strong> High-income regions suit premium
                         solutions. LMICs need B2B/public-health or lower-cost models.</div>
                 </div>
@@ -886,6 +913,11 @@
         <p>&copy; 2026 Optometry Market Analyzer | v2.1 - Q1 2026 | For strategic planning only</p>
         <p style="margin-top:6px">Not for medical diagnosis, treatment, financial, or legal advice.</p>
     </footer>
+    <script>
+    // Global variables to store chart instances for resizing
+    let marketGrowthChartInstance = null;
+    let regionalChartInstance = null;
+
 
 // Theme Toggle Function
 function toggleTheme() {
@@ -913,7 +945,131 @@ window.addEventListener('DOMContentLoaded', function() {
         document.documentElement.setAttribute('data-theme', 'light');
         document.getElementById('theme-toggle').innerHTML = '☀️ Light';
     }
-});    <script>var currency = 'USD', MYR_RATE = 4.45; function showTab(id, btn) { document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); btn.classList.add('active'); window.scrollTo(0, 0) } function setCurrency(c) { currency = c; document.getElementById('btn-usd').classList.toggle('active', c === 'USD'); document.getElementById('btn-myr').classList.toggle('active', c === 'MYR'); var r = document.getElementById('calc-result'); if (r.style.display === 'block') calcROI() } var nicheData = { ai: { b2c: { conv: .04, price: 12 }, b2b: { conv: .20, price: 400 } }, tele: { b2c: { conv: .06, price: 10 }, b2b: { conv: .22, price: 350 } }, ded: { b2c: { conv: .07, price: 8 }, b2b: { conv: .18, price: 250 } }, pm: { b2c: { conv: .05, price: 6 }, b2b: { conv: .25, price: 300 } } }; function calcROI() { var pEl = document.getElementById('patients'), errEl = document.getElementById('err-patients'), patients = parseInt(pEl.value); if (!patients || patients < 1) { errEl.style.display = 'block'; document.getElementById('calc-result').style.display = 'none'; return } errEl.style.display = 'none'; var niche = document.getElementById('niche-sel').value, model = document.getElementById('biz-model').value, d = nicheData[niche][model], annualUSD = Math.round(patients * d.conv * d.price * 12), display = currency === 'MYR' ? 'RM ' + Math.round(annualUSD * MYR_RATE).toLocaleString() + ' MYR' : '$' + annualUSD.toLocaleString() + ' USD'; document.getElementById('res-val').textContent = display + ' / year'; document.getElementById('res-detail').textContent = 'Based on ' + Math.round(d.conv * 100) + '% conversion at ' + (currency === 'MYR' ? 'RM' + Math.round(d.price * MYR_RATE) : '$' + d.price) + '/month average.'; document.getElementById('calc-result').style.display = 'block' }
+});
+
+        // Chart.js Initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if chart canvases exist before initializing
+            const growthCanvas = document.getElementById('marketGrowthChart');
+            const regionalCanvas = document.getElementById('regionalChart');
+            
+            if (!growthCanvas || !regionalCanvas) return;
+
+            // Shared styling variables
+            const colorPrimary = '#0284c7';
+            const colorAccent = '#eab308';
+            const colorMuted = '#94a3b8';
+            const colorCharcoal = '#2d3748';
+            const gridColor = 'rgba(148, 163, 184, 0.1)';
+
+            // 1. Market Growth Bar Chart
+            const ctxGrowth = growthCanvas.getContext('2d');
+            marketGrowthChartInstance = new Chart(ctxGrowth, {
+                type: 'bar',
+                data: {
+                    labels: ['2026 (Current)', '2033 (Projected)'],
+                    datasets: [{
+                        label: 'Market Value ($ Billions)',
+                        data: [65.8, 102.5],
+                        backgroundColor: [colorPrimary, colorAccent],
+                        borderRadius: 6,
+                        borderWidth: 0,
+                        barThickness: 50
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return '$' + context.raw + ' Billion';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: gridColor, drawBorder: false },
+                            ticks: { callback: function(value) { return '$' + value + 'B'; } }
+                        },
+                        x: {
+                            grid: { display: false, drawBorder: false }
+                        }
+                    }
+                }
+            });
+
+            // 2. Regional Distribution Doughnut Chart
+            const ctxRegion = regionalCanvas.getContext('2d');
+            regionalChartInstance = new Chart(ctxRegion, {
+                type: 'doughnut',
+                data: {
+                    labels: ['North America', 'Europe', 'Asia-Pacific', 'South America', 'Middle East & Africa'],
+                    datasets: [{
+                        data: [40, 30, 23, 5, 2],
+                        backgroundColor: [
+                            colorPrimary,
+                            colorCharcoal,
+                            colorAccent,
+                            '#cbd5e1',
+                            colorMuted
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                boxWidth: 12,
+                                padding: 15,
+                                font: { size: 11 }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ' ' + context.label + ': ' + context.raw + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    
+        // Updated showTab function with Chart.js resize fix
+        function showTab(tabId, btn) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.nav button');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            if (btn) btn.classList.add('active');
+
+            // Chart.js resize fix - force charts to recalculate size when returning to market tab
+            if (tabId === 'market') {
+                setTimeout(() => {
+                    if (marketGrowthChartInstance) marketGrowthChartInstance.resize();
+                    if (regionalChartInstance) regionalChartInstance.resize();
+                }, 10);
+            }
+            
+            window.scrollTo(0, 0);
+        }
+
+        <script>var currency = 'USD', MYR_RATE = 4.45; function showTab(id, btn) { document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); btn.classList.add('active'); window.scrollTo(0, 0) } function setCurrency(c) { currency = c; document.getElementById('btn-usd').classList.toggle('active', c === 'USD'); document.getElementById('btn-myr').classList.toggle('active', c === 'MYR'); var r = document.getElementById('calc-result'); if (r.style.display === 'block') calcROI() } var nicheData = { ai: { b2c: { conv: .04, price: 12 }, b2b: { conv: .20, price: 400 } }, tele: { b2c: { conv: .06, price: 10 }, b2b: { conv: .22, price: 350 } }, ded: { b2c: { conv: .07, price: 8 }, b2b: { conv: .18, price: 250 } }, pm: { b2c: { conv: .05, price: 6 }, b2b: { conv: .25, price: 300 } } }; function calcROI() { var pEl = document.getElementById('patients'), errEl = document.getElementById('err-patients'), patients = parseInt(pEl.value); if (!patients || patients < 1) { errEl.style.display = 'block'; document.getElementById('calc-result').style.display = 'none'; return } errEl.style.display = 'none'; var niche = document.getElementById('niche-sel').value, model = document.getElementById('biz-model').value, d = nicheData[niche][model], annualUSD = Math.round(patients * d.conv * d.price * 12), display = currency === 'MYR' ? 'RM ' + Math.round(annualUSD * MYR_RATE).toLocaleString() + ' MYR' : '$' + annualUSD.toLocaleString() + ' USD'; document.getElementById('res-val').textContent = display + ' / year'; document.getElementById('res-detail').textContent = 'Based on ' + Math.round(d.conv * 100) + '% conversion at ' + (currency === 'MYR' ? 'RM' + Math.round(d.price * MYR_RATE) : '$' + d.price) + '/month average.'; document.getElementById('calc-result').style.display = 'block' }
     
     </script>
 
