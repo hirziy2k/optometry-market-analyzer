@@ -6,6 +6,22 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Optometry Market Analyzer v2.1</title>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+        // CDN Fallback Detection - Critical Security Patch
+        setTimeout(function() {
+            if (typeof Chart === 'undefined') {
+                // Chart.js failed to load from CDN
+                const canvases = document.querySelectorAll('canvas');
+                canvases.forEach(function(canvas) {
+                    canvas.style.display = 'none';
+                    const errorMsg = document.createElement('div');
+                    errorMsg.style.cssText = 'padding:20px;text-align:center;color:#f87171;border:1px dashed #7f1d1d;border-radius:8px;background:#1c1917;margin:10px 0;';
+                    errorMsg.innerHTML = '⚠️ Charts unavailable - network connectivity required';
+                    canvas.parentElement.appendChild(errorMsg);
+                });
+            }
+        }, 2000);
+    </script>
     <style>
                 /* CSS Variables for Theme Toggle */
         :root {
