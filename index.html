@@ -236,9 +236,47 @@
             border: 1px solid #334155;
             border-radius: 12px;
             padding: 18px;
-            margin-bottom: 16px
+    transition: all 0.3s ease, opacity 0.4s ease;
+    opacity: 1;            margin-bottom: 16px
         }
 
+    .niche-card.hidden {
+        display: none;
+        opacity: 0;
+    }
+
+    .filter-container {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 24px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding-bottom: 4px;
+    }
+
+    .filter-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filter-pill {
+        flex-shrink: 0;
+        padding: 8px 16px;
+        background: #0f172a;
+        border: 1px solid #334155;
+        color: #94a3b8;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.2s;
+    }
+
+    .filter-pill.active {
+        background: #2563eb;
+        color: #fff;
+        border-color: #2563eb;
+    }
         .niche-header {
             display: flex;
             justify-content: space-between;
@@ -703,8 +741,19 @@
         </div>
         <div id="niches" class="tab-content">
             <div class="score-legend"><strong>Opportunity Score Methodology:</strong> <span>Market Size (25%)</span> +
+
+            <!-- Filter Pills -->
+            <div class="filter-container">
+                <button class="filter-pill active" data-filter="all">All Niches</button>
+                <button class="filter-pill" data-filter="ai">AI/ML</button>
+                <button class="filter-pill" data-filter="telehealth">Telehealth</button>
+                <button class="filter-pill" data-filter="chronic">Chronic Care</button>
+                <button class="filter-pill" data-filter="saas">SaaS</button>
+                <button class="filter-pill" data-filter="edtech">EdTech</button>
+                <button class="filter-pill" data-filter="analytics">Analytics</button>
+            </div>
                 <span>Growth Rate (25%)</span> + <span>Unmet Need (30%)</span> + <span>Feasibility (20%)</span></div>
-            <div class="niche-card">
+            <div class="niche-card data-category="ai"">
                 <div class="niche-header">
                     <div class="niche-title">&#129504; AI-Powered Diagnostic Assistant</div>
                     <div class="score-badge">9.5/10</div>
@@ -722,7 +771,7 @@
                     expertise. <strong>Risk HIGH:</strong> Requires FDA 510(k)/CE/MDA approval, clinical validation,
                     liability management.</div>
             </div>
-            <div class="niche-card">
+            <div class="niche-card data-category="telehealth"">
                 <div class="niche-header">
                     <div class="niche-title">&#128064; Tele-Optometry &amp; Remote Consultation</div>
                     <div class="score-badge">9.2/10</div>
@@ -740,7 +789,7 @@
                         MEDIUM:</strong> Malaysia Telemedicine Act 1997 compliance required; scope-of-practice
                     documentation essential.</div>
             </div>
-            <div class="niche-card">
+            <div class="niche-card data-category="chronic"">
                 <div class="niche-header">
                     <div class="niche-title">&#128142; Dry Eye Disease (DED) Manager</div>
                     <div class="score-badge">9.0/10</div>
@@ -756,7 +805,7 @@
                 </ul>
                 <div class="best-for"><strong>Best for:</strong> Optometrists with DED patient populations. <strong>Risk
                         LOW-MEDIUM:</strong> Not classified as medical device if symptom-tracking only; PDPA compliance
-                    required.</div>
+            data-category="saas"         required.</div>
             </div>
             <div class="niche-card">
                 <div class="niche-header">
@@ -772,7 +821,7 @@
                     <li>Takaful/insurance claim status</li>
                     <li>Patient education and post-visit instructions</li>
                 </ul>
-                <div class="best-for"><strong>Best for:</strong> Independent clinics reducing no-shows. <strong>Risk
+                <div class="best-fo data-category="saas"r"><strong>Best for:</strong> Independent clinics reducing no-shows. <strong>Risk
                         LOW:</strong> PDPA and WhatsApp Business API compliance required.</div>
             </div>
             <div class="niche-card">
@@ -787,7 +836,7 @@
                     <li>EHR with optometry templates (VA, refraction, slit lamp)</li>
                     <li>Inventory management for frames and lenses</li>
                     <li>Billing and revenue analytics</li>
-                    <li>FHIR HL7-compatible interoperability</li>
+                    <li>FHIR HL7-co data-category="chronic"mpatible interoperability</li>
                 </ul>
                 <div class="best-for"><strong>Best for:</strong> Multi-practitioner clinics replacing paper records.
                     <strong>Risk LOW-MEDIUM:</strong> Health data classification under PDPA/MOH.</div>
@@ -800,7 +849,7 @@
                 <div><span class="tag">Pediatric</span><span class="tag">Asia-Pacific Priority</span><span
                         class="risk-badge risk-med">Risk: MEDIUM</span></div>
                 <div class="sub-market">Sub-market: ~$6.1B (12.4% CAGR)</div>
-                <ul class="features-list">
+                <ul class= data-category="edtech""features-list">
                     <li>Myopia progression tracking</li>
                     <li>Parent dashboard with risk calculators</li>
                     <li>Ortho-K and atropine adherence monitoring</li>
@@ -827,7 +876,7 @@
                 <div class="best-for"><strong>Best for:</strong> Universities and professional bodies. <strong>Risk
                         LOW:</strong> Accreditation partnerships required for credits to hold value.</div>
             </div>
-            <div class="niche-card">
+            <div class="niche-card" data-category="analytics">
                 <div class="niche-header">
                     <div class="niche-title">&#128200; Vision Health Analytics (Population)</div>
                     <div class="score-badge">8.0/10</div>
@@ -1087,6 +1136,31 @@ window.addEventListener('DOMContentLoaded', function() {
 
         <script>var currency = 'USD', MYR_RATE = 4.45; function showTab(id, btn) { document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); btn.classList.add('active'); window.scrollTo(0, 0) } function setCurrency(c) { currency = c; document.getElementById('btn-usd').classList.toggle('active', c === 'USD'); document.getElementById('btn-myr').classList.toggle('active', c === 'MYR'); var r = document.getElementById('calc-result'); if (r.style.display === 'block') calcROI() } var nicheData = { ai: { b2c: { conv: .04, price: 12 }, b2b: { conv: .20, price: 400 } }, tele: { b2c: { conv: .06, price: 10 }, b2b: { conv: .22, price: 350 } }, ded: { b2c: { conv: .07, price: 8 }, b2b: { conv: .18, price: 250 } }, pm: { b2c: { conv: .05, price: 6 }, b2b: { conv: .25, price: 300 } } }; function calcROI() { var pEl = document.getElementById('patients'), errEl = document.getElementById('err-patients'), patients = parseInt(pEl.value); if (!patients || patients < 1) { errEl.style.display = 'block'; document.getElementById('calc-result').style.display = 'none'; return } errEl.style.display = 'none'; var niche = document.getElementById('niche-sel').value, model = document.getElementById('biz-model').value, d = nicheData[niche][model], annualUSD = Math.round(patients * d.conv * d.price * 12), display = currency === 'MYR' ? 'RM ' + Math.round(annualUSD * MYR_RATE).toLocaleString() + ' MYR' : '$' + annualUSD.toLocaleString() + ' USD'; document.getElementById('res-val').textContent = display + ' / year'; document.getElementById('res-detail').textContent = 'Based on ' + Math.round(d.conv * 100) + '% conversion at ' + (currency === 'MYR' ? 'RM' + Math.round(d.price * MYR_RATE) : '$' + d.price) + '/month average.'; document.getElementById('calc-result').style.display = 'block' }
     
+
+        // Filter System with Smooth Transitions (Patches 1 & 2)
+        document.querySelectorAll('.filter-pill').forEach(function(pill) {
+            pill.addEventListener('click', function() {
+                const filterValue = this.getAttribute('data-filter');
+                
+                // Update active pill
+                document.querySelectorAll('.filter-pill').forEach(function(p) {
+                    p.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Filter cards with smooth opacity transition
+                const nicheCards = document.querySelectorAll('.niche-card');
+                nicheCards.forEach(function(card) {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.classList.remove('hidden');
+                        setTimeout(function() { card.style.opacity = '1'; }, 10);
+                    } else {
+                        card.style.opacity = '0';
+                        setTimeout(function() { card.classList.add('hidden'); }, 300);
+                    }
+                });
+            });
+        });
     </script>
 
 </body>
