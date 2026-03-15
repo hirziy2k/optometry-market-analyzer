@@ -1210,27 +1210,6 @@ window.addEventListener('DOMContentLoaded', function() {
             });
         });
     
-        // Updated showTab function with Chart.js resize fix
-        function _DEPRECATED_showTab(tabId, btn) {
-            const tabs = document.querySelectorAll('.tab-content');
-            const buttons = document.querySelectorAll('.nav button');
-            
-            tabs.forEach(tab => tab.classList.remove('active'));
-            buttons.forEach(btn => btn.classList.remove('active'));
-            
-            document.getElementById(tabId).classList.add('active');
-            if (btn) btn.classList.add('active');
-
-            // Chart.js resize fix - force charts to recalculate size when returning to market tab
-            if (tabId === 'market') {
-                setTimeout(() => {
-                    if (marketGrowthChartInstance) marketGrowthChartInstance.resize();
-                    if (regionalChartInstance) regionalChartInstance.resize();
-                }, 10);
-            }
-            
-            window.scrollTo(0, 0);
-        }
 
         </script>
 
