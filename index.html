@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Optometry Market Analyzer v2.1</title>
+    <title>Optometry Market Analyzer v2.2</title>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
         // CDN Fallback Detection - Critical Security Patch
@@ -690,6 +690,20 @@
             color: #3b82f6;
             text-decoration: none
         }
+                /* Market Assessment v2.2 */
+        #market input[type="number"],
+        #market input[type="text"],
+        #market select {
+            width: 100%; padding: 10px; margin-top: 0.25rem; margin-bottom: 1rem;
+            background: #0f172a; border: 1px solid #334155; border-radius: 8px;
+            color: #e2e8f0; font-size: 0.95rem
+        }
+        #market label {
+            display: block; font-weight: 600; color: #94a3b8;
+            margin-top: 1rem; font-size: 0.9rem
+        }
+        details summary { list-style: none; cursor: pointer }
+        details summary::-webkit-details-marker { display: none }
 
         ul.plain-list {
             list-style: none;
@@ -733,6 +747,56 @@
             <h3>&#129517; How to Use This App</h3>
             <ul style="list-style:none">
                 <li><strong>Practitioners / Clinic Owners:</strong> Start at Market Overview, shortlist 1-2 niches
+                                <div class="card" style="margin-bottom: 2rem;">
+                <h2>📊 Market Assessment</h2>
+                <p style="color: #94a3b8; margin-bottom: 1.5rem;">Input your market context to receive a structured viability assessment.</p>
+                <label>Geography</label>
+                <input type="text" id="market-geo" value="Malaysia">
+                <label>SAM (RM / Year)</label>
+                <input type="number" id="market-sam" value="2100000">
+                <label>SOM (RM / Year)</label>
+                <input type="number" id="market-som" value="350000">
+                <div class="grid-2">
+                    <div>
+                        <label>Growth Rate (%)</label>
+                        <input type="number" id="market-growth" step="0.1" value="4.5">
+                    </div>
+                    <div>
+                        <label>Competition Density</label>
+                        <input type="number" id="market-comp" step="0.1" value="1.2">
+                    </div>
+                </div>
+                <label>Regulatory Friction (0-100)</label>
+                <input type="number" id="market-reg" value="45">
+                <div class="grid-2">
+                    <div>
+                        <label>Channel</label>
+                        <select id="market-channel">
+                            <option value="brick_mortar">Brick &amp; Mortar</option>
+                            <option value="hybrid">Hybrid</option>
+                            <option value="online_first">Online First</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Modality</label>
+                        <select id="market-modality">
+                            <option value="full_scope_clinic">Full Scope Clinic</option>
+                            <option value="optical_retail">Optical Retail</option>
+                            <option value="contact_lens">Contact Lenses</option>
+                            <option value="teleoptometry">Teleoptometry</option>
+                        </select>
+                    </div>
+                </div>
+                <button onclick="classifyMarket()" style="background: #F5C518; color: #262626; width: 100%; padding: 12px; margin-top: 1.5rem; font-weight: 700; border: none; border-radius: 8px; cursor: pointer;">Classify Market</button>
+            </div>
+            <div id="market-result" class="card" style="display: none; margin-bottom: 2rem;"></div>
+            <div id="market-mda-flag" class="card" style="display: none; background: #FFF8D6; border: 2px solid #F5C518; margin-bottom: 2rem;">
+                <h3 style="color: #856404;">⚠️ MDA COMPLIANCE ALERT</h3>
+                <p style="color: #856404; font-size: 0.9rem; margin: 0.5rem 0 0 0;">Act 737 restrictions apply to online sales of optical devices and contact lenses in Malaysia.</p>
+            </div>
+            <details>
+                <summary style="padding: 1rem; background: #1e293b; border-radius: 8px; color: #60a5fa; font-weight: 600;">🌍 Global Market Context</summary>
+                <div style="padding-top: 1rem;">
                     matching your patient base, then use the ROI Calculator to estimate revenue potential.</li>
                 <li><strong>Entrepreneurs / Product Teams:</strong> Use Market + Research Framework to validate one
                     niche, quantify demand, and design a realistic MVP and business model.</li>
@@ -794,7 +858,9 @@
                         advice</li>
                 </ul>
             </div>
-                </div><!-- end market tab -->
+                                </div><!-- end Global Market Context -->
+            </details>
+</div><!-- end market tab -->
         <div id="niches" class="tab-content">
             <div class="score-legend"><strong>Opportunity Score Methodology:</strong> <span>Market Size (25%)</span> +
 
@@ -1272,6 +1338,40 @@ window.addEventListener('DOMContentLoaded', function() {
         <script>var currency = 'USD', MYR_RATE = 4.45; function showTab(id, btn) { document.querySelectorAll('.tab-content').forEach(function(t){t.style.display='none';t.classList.remove('active');}); document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active')); var _el=document.getElementById(id);if(_el){_el.style.display='block';_el.classList.add('active');} if (btn) btn.classList.add('active'); if (id === 'market') { setTimeout(function() { if (marketGrowthChartInstance) marketGrowthChartInstance.resize(); if (regionalChartInstance) regionalChartInstance.resize(); }, 10); } window.scrollTo(0, 0); } function setCurrency(c) { currency = c; document.getElementById('btn-usd').classList.toggle('active', c === 'USD'); document.getElementById('btn-myr').classList.toggle('active', c === 'MYR'); var r = document.getElementById('calc-result'); if (r.style.display === 'block') calcROI() } var nicheData = { ai: { b2c: { conv: .04, price: 12 }, b2b: { conv: .20, price: 400 } }, tele: { b2c: { conv: .06, price: 10 }, b2b: { conv: .22, price: 350 } }, ded: { b2c: { conv: .07, price: 8 }, b2b: { conv: .18, price: 250 } }, pm: { b2c: { conv: .05, price: 6 }, b2b: { conv: .25, price: 300 } } }; function calcROI() { var pEl = document.getElementById('patients'), errEl = document.getElementById('err-patients'), patients = parseInt(pEl.value); if (!patients || patients < 1) { errEl.style.display = 'block'; document.getElementById('calc-result').style.display = 'none'; return } errEl.style.display = 'none'; var niche = document.getElementById('niche-sel').value, model = document.getElementById('biz-model').value, d = nicheData[niche][model], annualUSD = Math.round(patients * d.conv * d.price * 12), display = currency === 'MYR' ? 'RM ' + Math.round(annualUSD * MYR_RATE).toLocaleString() + ' MYR' : '$' + annualUSD.toLocaleString() + ' USD'; document.getElementById('res-val').textContent = display + ' / year'; document.getElementById('res-detail').textContent = 'Based on ' + Math.round(d.conv * 100) + '% conversion at ' + (currency === 'MYR' ? 'RM' + Math.round(d.price * MYR_RATE) : '$' + d.price) + '/month average.'; document.getElementById('calc-result').style.display = 'block' }
     
 
+        // ============================================================
+        // MARKET CLASSIFICATION ENGINE v2.2
+        // ============================================================
+        const MARKET_THRESHOLDS = { SAM_min: 2000000, SOM_min: 300000 };
+        function classifyMarket() {
+            const inputs = {
+                SAM: parseFloat(document.getElementById('market-sam').value),
+                SOM: parseFloat(document.getElementById('market-som').value),
+                growth_rate: parseFloat(document.getElementById('market-growth').value),
+                competition_density: parseFloat(document.getElementById('market-comp').value),
+                regulatory_friction_score: parseFloat(document.getElementById('market-reg').value),
+                channel: document.getElementById('market-channel').value,
+                modality: document.getElementById('market-modality').value
+            };
+            const g_band = inputs.growth_rate < 0 ? 'shrink' : inputs.growth_rate < 2 ? 'flat' : inputs.growth_rate < 6 ? 'mod' : 'high';
+            const c_band = inputs.competition_density < 0.8 ? 'low' : inputs.competition_density <= 1.5 ? 'med' : 'high';
+            const r_band = inputs.regulatory_friction_score < 30 ? 'low' : inputs.regulatory_friction_score < 60 ? 'med' : inputs.regulatory_friction_score < 80 ? 'high' : 'v_high';
+            let status = null, reasons = [];
+            if (r_band === 'v_high') { status = 'fail'; reasons.push('regulatory_block'); }
+            if (!status && (inputs.SAM < MARKET_THRESHOLDS.SAM_min || inputs.SOM < MARKET_THRESHOLDS.SOM_min)) { status = 'fail'; reasons.push('market_too_small'); }
+            if (!status && g_band === 'shrink' && c_band === 'high') { status = 'fail'; reasons.push('shrinking_and_crowded'); }
+            if (!status && (g_band === 'flat' || c_band === 'high' || r_band === 'high')) { status = 'soft_pass'; reasons.push('market_headwinds'); }
+            if (!status) { status = 'pass'; reasons = ['structurally_attractive']; }
+            const colors = { pass: { bg: '#E8F5E9', border: '#2E7D32' }, soft_pass: { bg: '#FFF3E0', border: '#E65100' }, fail: { bg: '#FFEBEE', border: '#B71C1C' } };
+            const c = colors[status];
+            const resultDiv = document.getElementById('market-result');
+            resultDiv.style.display = 'block';
+            resultDiv.style.background = c.bg;
+            resultDiv.style.borderLeft = '4px solid ' + c.border;
+            resultDiv.innerHTML = '<strong>Status: ' + status.toUpperCase().replace(/_/g,'-') + '</strong><br>Reason: ' + reasons.join(', ').replace(/_/g,' ');
+            const mdaFlag = document.getElementById('market-mda-flag');
+            mdaFlag.style.display = (inputs.channel === 'online_first' && ['optical_retail','contact_lens'].includes(inputs.modality)) ? 'block' : 'none';
+            window.marketAssessment = { status, inputs, reasons };
+        }
         // Filter System with Smooth Transitions (Patches 1 & 2)
         document.querySelectorAll('.filter-pill').forEach(function(pill) {
             pill.addEventListener('click', function() {
