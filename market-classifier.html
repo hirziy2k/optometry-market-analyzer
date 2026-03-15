@@ -23,6 +23,9 @@
     .status-pass { background: #E8F5E9; border: 2px solid var(--pass); color: var(--pass); }
     .status-soft_pass { background: #FFF3E0; border: 2px solid var(--soft); color: var(--soft); }
     .status-fail { background: #FFEBEE; border: 2px solid var(--fail); color: var(--fail); }
+    /* MDA Flag Style */
+    .compliance-flag { background: #FFF8D6; border: 2px solid var(--yellow); padding: 1rem; border-radius: 8px; margin-top: 1rem; display: none; }
+    .compliance-flag strong { color: #856404; display: block; margin-bottom: 0.25rem; }
   </style>
 </head>
 <body>
@@ -30,44 +33,40 @@
   <div class="card">
     <label>Geography</label>
     <input type="text" id="geo" value="Malaysia">
-    
     <label>SAM (RM / Year)</label>
     <input type="number" id="sam" value="2100000">
-    
     <label>SOM (RM / Year)</label>
     <input type="number" id="som" value="350000">
-    
     <label>Growth Rate (%)</label>
     <input type="number" id="growth" value="4.5">
-    
-    <label>Competition Density (clinics / 10k pop)</label>
+    <label>Competition Density</label>
     <input type="number" id="comp" step="0.1" value="1.2">
-    
     <label>Regulatory Friction (0-100)</label>
     <input type="number" id="reg" value="45">
-
     <label>Channel</label>
     <select id="channel">
       <option value="brick_mortar">Brick & Mortar</option>
       <option value="hybrid">Hybrid</option>
       <option value="online_first">Online First</option>
     </select>
-
     <label>Modality</label>
     <select id="modality">
       <option value="full_scope_clinic">Full Scope Clinic</option>
       <option value="optical_retail">Optical Retail</option>
+      <option value="contact_lens">Contact Lenses</option>
       <option value="teleoptometry">Teleoptometry</option>
     </select>
-    
     <button onclick="runTest()">Classify Market</button>
   </div>
 
   <div id="result"></div>
+  <div id="mda-flag" class="compliance-flag">
+    <strong>⚠️ MDA COMPLIANCE ALERT</strong>
+    Act 737 restrictions apply to online sales of optical devices and contact lenses in Malaysia. Consult MDA guidelines for digital channel validation.
+  </div>
 
   <script>
     const THRESHOLDS = { SAM_min: 2000000, SOM_min: 300000 };
-
     function runTest() {
       const inputs = {
         SAM: parseFloat(document.getElementById('sam').value),
@@ -78,30 +77,29 @@
         channel: document.getElementById('channel').value,
         modality: document.getElementById('modality').value
       };
-
       const res = classify(inputs);
       const resDiv = document.getElementById('result');
       resDiv.className = 'status-' + res.status;
       resDiv.style.display = 'block';
       resDiv.innerHTML = `<strong>Status: ${res.status.toUpperCase()}</strong><br>Reason: ${res.reasons.join(', ')}`;
+      
+      // Handle MDA Flag
+      const mdaFlag = document.getElementById('mda-flag');
+      if (inputs.channel === 'online_first' && ['optical_retail', 'contact_lens'].includes(inputs.modality)) {
+        mdaFlag.style.display = 'block';
+      } else {
+        mdaFlag.style.display = 'none';
+      }
     }
-
     function classify(i) {
       let status = null; let reasons = [];
       const g_band = i.growth_rate < 0 ? 'shrink' : i.growth_rate < 2 ? 'flat' : i.growth_rate < 6 ? 'mod' : 'high';
       const c_band = i.competition_density < 0.8 ? 'low' : i.competition_density <= 1.5 ? 'med' : 'high';
       const r_band = i.regulatory_friction_score < 30 ? 'low' : i.regulatory_friction_score < 60 ? 'med' : i.regulatory_friction_score < 80 ? 'high' : 'v_high';
-
       if (r_band === 'v_high') { status = 'fail'; reasons.push('regulatory_block'); }
-      if (!status && (i.SAM < THRESHOLDS.SAM_min || i.SOM < THRESHOLDS.SOM_min)) { 
-        status = 'fail'; reasons.push('too_small'); 
-      }
+      if (!status && (i.SAM < THRESHOLDS.SAM_min || i.SOM < THRESHOLDS.SOM_min)) { status = 'fail'; reasons.push('too_small'); }
       if (!status && g_band === 'shrink' && c_band === 'high') { status = 'fail'; reasons.push('shrinking_crowded'); }
-      
-      if (!status && (g_band === 'flat' || c_band === 'high' || r_band === 'high')) {
-        status = 'soft_pass'; reasons.push('market_headwinds');
-      }
-      
+      if (!status && (g_band === 'flat' || c_band === 'high' || r_band === 'high')) { status = 'soft_pass'; reasons.push('market_headwinds'); }
       if (!status) { status = 'pass'; reasons.push('structurally_attractive'); }
       return { status, reasons };
     }
