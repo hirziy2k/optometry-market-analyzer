@@ -753,7 +753,7 @@
                 <button class="filter-pill" data-filter="analytics">Analytics</button>
             </div>
                 <span>Growth Rate (25%)</span> + <span>Unmet Need (30%)</span> + <span>Feasibility (20%)</span></div>
-            <div class="niche-card data-category="ai"">
+            <div class="niche-card" data-category="ai">
                 <div class="niche-header">
                     <div class="niche-title">&#129504; AI-Powered Diagnostic Assistant</div>
                     <div class="score-badge">9.5/10</div>
@@ -771,7 +771,7 @@
                     expertise. <strong>Risk HIGH:</strong> Requires FDA 510(k)/CE/MDA approval, clinical validation,
                     liability management.</div>
             </div>
-            <div class="niche-card data-category="telehealth"">
+            <div class="niche-card" data-category="telehealth">
                 <div class="niche-header">
                     <div class="niche-title">&#128064; Tele-Optometry &amp; Remote Consultation</div>
                     <div class="score-badge">9.2/10</div>
@@ -789,7 +789,7 @@
                         MEDIUM:</strong> Malaysia Telemedicine Act 1997 compliance required; scope-of-practice
                     documentation essential.</div>
             </div>
-            <div class="niche-card data-category="chronic"">
+            <div class="niche-card" data-category="chronic">
                 <div class="niche-header">
                     <div class="niche-title">&#128142; Dry Eye Disease (DED) Manager</div>
                     <div class="score-badge">9.0/10</div>
@@ -805,9 +805,9 @@
                 </ul>
                 <div class="best-for"><strong>Best for:</strong> Optometrists with DED patient populations. <strong>Risk
                         LOW-MEDIUM:</strong> Not classified as medical device if symptom-tracking only; PDPA compliance
-            data-category="saas"         required.</div>
+                        required.</div>
             </div>
-            <div class="niche-card">
+            <div class="niche-card" data-category="saas">
                 <div class="niche-header">
                     <div class="niche-title">&#128241; Patient-Facing Practice Management</div>
                     <div class="score-badge">8.8/10</div>
@@ -821,10 +821,10 @@
                     <li>Takaful/insurance claim status</li>
                     <li>Patient education and post-visit instructions</li>
                 </ul>
-                <div class="best-fo data-category="saas"r"><strong>Best for:</strong> Independent clinics reducing no-shows. <strong>Risk
+                <div class="best-for"><strong>Best for:</strong> Independent clinics reducing no-shows. <strong>Risk
                         LOW:</strong> PDPA and WhatsApp Business API compliance required.</div>
             </div>
-            <div class="niche-card">
+            <div class="niche-card" data-category="saas">
                 <div class="niche-header">
                     <div class="niche-title">&#127973; Clinical EHR &amp; Admin Management</div>
                     <div class="score-badge">8.5/10</div>
@@ -836,12 +836,12 @@
                     <li>EHR with optometry templates (VA, refraction, slit lamp)</li>
                     <li>Inventory management for frames and lenses</li>
                     <li>Billing and revenue analytics</li>
-                    <li>FHIR HL7-co data-category="chronic"mpatible interoperability</li>
+                    <li>FHIR HL7-compatible interoperability</li>
                 </ul>
                 <div class="best-for"><strong>Best for:</strong> Multi-practitioner clinics replacing paper records.
                     <strong>Risk LOW-MEDIUM:</strong> Health data classification under PDPA/MOH.</div>
             </div>
-            <div class="niche-card">
+            <div class="niche-card" data-category="chronic">
                 <div class="niche-header">
                     <div class="niche-title">&#128083; Myopia Management Platform</div>
                     <div class="score-badge">8.7/10</div>
@@ -849,7 +849,7 @@
                 <div><span class="tag">Pediatric</span><span class="tag">Asia-Pacific Priority</span><span
                         class="risk-badge risk-med">Risk: MEDIUM</span></div>
                 <div class="sub-market">Sub-market: ~$6.1B (12.4% CAGR)</div>
-                <ul class= data-category="edtech""features-list">
+                <ul class="features-list">
                     <li>Myopia progression tracking</li>
                     <li>Parent dashboard with risk calculators</li>
                     <li>Ortho-K and atropine adherence monitoring</li>
@@ -859,7 +859,7 @@
                     in urban children). <strong>Risk MEDIUM:</strong> Pediatric data privacy and parental consent flows
                     required.</div>
             </div>
-            <div class="niche-card">
+            <div class="niche-card" data-category="edtech">
                 <div class="niche-header">
                     <div class="niche-title">&#127891; Optometry Education &amp; CPD Platform</div>
                     <div class="score-badge">8.3/10</div>
@@ -925,6 +925,66 @@
                 <h2>&#128736; Development Roadmap</h2>
                 <p>Malaysia dev rates typically 40-60% lower than US/EU</p>
             </div>
+            <div class="roadmap-step">
+                <h4>Phase 1 — Validate &amp; Define (Month 1–2)</h4>
+                <div class="meta"><span class="tag-meta">Duration: 6–8 weeks</span><span class="tag-meta">Cost: RM 5,000–15,000</span></div>
+                <ul class="plain-list">
+                    <li>Define target niche and primary user persona (optometrist vs patient-facing)</li>
+                    <li>Conduct 10–15 user interviews; identify top 3 pain points</li>
+                    <li>Competitive audit: map existing solutions and pricing</li>
+                    <li>Draft feature list, rank by impact vs effort (MoSCoW)</li>
+                    <li>Confirm regulatory classification (Class A–D, MDA Malaysia)</li>
+                </ul>
+                <div class="gate">🔒 Gate: Signed user validation report + confirmed regulatory path before proceeding</div>
+            </div>
+            <div class="roadmap-step">
+                <h4>Phase 2 — MVP Design &amp; Prototype (Month 2–4)</h4>
+                <div class="meta"><span class="tag-meta">Duration: 6–10 weeks</span><span class="tag-meta">Cost: RM 8,000–25,000</span></div>
+                <ul class="plain-list">
+                    <li>Wireframe core flows (max 3–5 screens for MVP)</li>
+                    <li>Build interactive prototype (Figma or equivalent)</li>
+                    <li>5 usability tests with target users; iterate on findings</li>
+                    <li>Define tech stack: React Native / Flutter for mobile; Node.js / Laravel for backend</li>
+                    <li>Set up PDPA-compliant data architecture; map personal data flows</li>
+                </ul>
+                <div class="gate">🔒 Gate: Prototype usability score ≥70% task success before development begins</div>
+            </div>
+            <div class="roadmap-step">
+                <h4>Phase 3 — Build MVP (Month 3–7)</h4>
+                <div class="meta"><span class="tag-meta">Duration: 10–16 weeks</span><span class="tag-meta">Cost: RM 20,000–60,000</span></div>
+                <ul class="plain-list">
+                    <li>Sprint-based development (2-week sprints); Malaysia dev rates ~RM 80–150/hr</li>
+                    <li>Core features only: auth, primary workflow, basic analytics</li>
+                    <li>Integrate WhatsApp Business API for notifications (if B2C)</li>
+                    <li>PDPA consent flows, data encryption at rest and in transit</li>
+                    <li>Internal QA: functional, regression, device compatibility (Android priority in MY)</li>
+                </ul>
+                <div class="funding-cp">💰 Funding checkpoint: Apply for MDEC GAIN grant (up to RM 300K) or CRADLE CIP300</div>
+            </div>
+            <div class="roadmap-step">
+                <h4>Phase 4 — Pilot &amp; Iterate (Month 7–10)</h4>
+                <div class="meta"><span class="tag-meta">Duration: 8–12 weeks</span><span class="tag-meta">Cost: RM 5,000–15,000</span></div>
+                <ul class="plain-list">
+                    <li>Recruit 3–5 pilot clinics or 50–100 beta users</li>
+                    <li>Instrument analytics: track activation, retention, key actions</li>
+                    <li>Weekly feedback loops; fix critical bugs within 48 hours</li>
+                    <li>Measure unit economics: CAC, LTV, NPS baseline</li>
+                    <li>If Class B+: begin MDA medical device registration process (6–18 months)</li>
+                </ul>
+                <div class="gate">🔒 Gate: Retain ≥40% of pilot users at Week 8; NPS ≥30 before public launch</div>
+            </div>
+            <div class="roadmap-step">
+                <h4>Phase 5 — Launch &amp; Scale (Month 10+)</h4>
+                <div class="meta"><span class="tag-meta">SEA-first expansion</span><span class="tag-meta">Cost: ongoing</span></div>
+                <ul class="plain-list">
+                    <li>Public launch on App Store + Google Play; list on AMO platform if applicable</li>
+                    <li>Pricing model: freemium → paid tier, or clinic SaaS subscription (RM 100–500/month)</li>
+                    <li>Channel partners: AMO, optometry schools (UM, UCSI, MAHSA, KPTM)</li>
+                    <li>SEA expansion: Singapore (HSA), Indonesia (BPOM), Thailand after MY traction</li>
+                    <li>Series A fundraise or strategic partnership after 12-month data proof</li>
+                </ul>
+                <div class="pitfall"><h4>⚠️ Common Pitfalls</h4><p>Over-building before validation · Skipping PDPA compliance until post-launch · Underpricing B2B SaaS · Ignoring Android-first reality in Malaysia (78% Android market share)</p></div>
+            </div>
         </div>
         <div id="regulatory" class="tab-content">
             <div class="disclaimer-box">This is not legal advice. Consult a qualified professional.</div>
@@ -959,13 +1019,52 @@
                 <h2>&#128269; Research Framework</h2>
                 <p>TAM/SAM/SOM analysis, competitor mapping, user research protocol</p>
             </div>
+            <div class="card">
+                <h3>📐 Market Sizing Framework</h3>
+                <ul class="plain-list">
+                    <li><strong>TAM (Total Addressable Market):</strong> Global optometry digital health market — ~$65.8B (2026). Use WHO prevalence data × average revenue per patient × digitisation rate.</li>
+                    <li><strong>SAM (Serviceable Addressable Market):</strong> Narrow by geography (SEA/Malaysia), solution category, and tech-adoption segment. Malaysian optometry market ~RM 2.1B.</li>
+                    <li><strong>SOM (Serviceable Obtainable Market):</strong> Realistic Year 1–3 capture rate. Target 0.5–2% of SAM in early stages. Document assumptions explicitly.</li>
+                    <li><strong>Validation:</strong> Cross-check with bottom-up calculation (# target clinics × average contract value per clinic).</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🔍 Competitor Mapping</h3>
+                <ul class="plain-list">
+                    <li><strong>Direct competitors:</strong> Products solving the same problem for the same user (e.g., other DED apps, other tele-optometry platforms)</li>
+                    <li><strong>Indirect competitors:</strong> Different approach to same job-to-be-done (e.g., WhatsApp for patient reminders vs dedicated app)</li>
+                    <li><strong>Map each on:</strong> Price · Target market · Key features · Regulatory status · Funding raised</li>
+                    <li><strong>Differentiation test:</strong> Can you articulate why a user would switch in one sentence? If not, rethink positioning.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>👥 User Research Protocol</h3>
+                <ul class="plain-list">
+                    <li><strong>Recruit:</strong> 8–12 target users across 2–3 user segments (e.g., optometrist, patient, clinic manager)</li>
+                    <li><strong>Method:</strong> 30-min semi-structured interviews; observe current workflow before asking about solutions</li>
+                    <li><strong>Key questions:</strong> What is the most painful part of [workflow]? How do you currently handle it? What would make you pay for a solution?</li>
+                    <li><strong>Synthesise:</strong> Affinity mapping → identify top 3 themes → validate with survey (n≥50)</li>
+                    <li><strong>Malaysian context:</strong> Bilingual recruitment (BM + English); account for urban/rural divide in optometry access</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>✅ Go / No-Go Checklist</h3>
+                <ul class="plain-list">
+                    <li>Problem confirmed by ≥70% of interviewed users as high-priority</li>
+                    <li>Willingness-to-pay validated (not just interest — ask for commitment)</li>
+                    <li>Regulatory path clear (MDA class, PDPA obligations mapped)</li>
+                    <li>SAM ≥ RM 10M (minimum viable market for sustainable business)</li>
+                    <li>No single competitor with &gt;60% market share and defensible moat</li>
+                    <li>Founding team has domain expertise OR committed clinical advisor</li>
+                </ul>
+            </div>
         </div>
         <div id="resources" class="tab-content">
             <div class="card">
                 <h3>&#127474;&#127486; Malaysia Resources</h3><a class="resource-link"
                     href="https://www.optometrists.org.my" target="_blank">AMO<span>Association of Malaysian
                         Optometrists</span></a><a class="resource-link" href="https://www.mdec.my/gain"
-window.scrollTo(0, 0);            </div>
+                target="_blank">MDEC GAIN<span>Digital innovation grants</span></a>
             <div class="card">
                 <h3>&#127757; Global Resources</h3><a class="resource-link"
                     href="https://www.who.int/health-topics/blindness-and-vision-loss" target="_blank">WHO Vision
