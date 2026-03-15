@@ -53,7 +53,66 @@
             --border-color: #cbd5e1;
             --border-color-light: #94a3b8;
         }
-
+        /* === Light Mode Component Overrides === */
+        [data-theme="light"] .card,
+        [data-theme="light"] .niche-card,
+        [data-theme="light"] .calc-card,
+        [data-theme="light"] .roadmap-step,
+        [data-theme="light"] .pitfall,
+        [data-theme="light"] .how-to-card {
+            background: var(--bg-secondary);
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+        [data-theme="light"] .metric,
+        [data-theme="light"] .best-for,
+        [data-theme="light"] .implication,
+        [data-theme="light"] .score-legend,
+        [data-theme="light"] .calc-result,
+        [data-theme="light"] .gate,
+        [data-theme="light"] .funding-cp {
+            background: var(--bg-primary);
+            border-color: var(--border-color);
+        }
+        [data-theme="light"] .nav {
+            background: var(--bg-secondary);
+            border-color: var(--border-color);
+        }
+        [data-theme="light"] .nav button {
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            border-color: var(--border-color);
+        }
+        [data-theme="light"] .niche-title { color: var(--text-primary); }
+        [data-theme="light"] .features-list li,
+        [data-theme="light"] .how-to-card li,
+        [data-theme="light"] ul.plain-list li {
+            color: var(--text-secondary);
+            border-color: var(--border-color);
+        }
+        [data-theme="light"] .tag-meta {
+            background: var(--bg-primary);
+            border-color: var(--border-color);
+            color: var(--text-secondary);
+        }
+        [data-theme="light"] .reg-table th { background: var(--bg-primary); border-color: var(--border-color); }
+        [data-theme="light"] .reg-table td { border-color: var(--border-color); color: var(--text-secondary); }
+        [data-theme="light"] .reg-table tr:nth-child(even) td { background: var(--bg-primary); }
+        [data-theme="light"] .resource-link { background: var(--bg-primary); border-color: var(--border-color); }
+        [data-theme="light"] .filter-pill { background: var(--bg-primary); border-color: var(--border-color); color: var(--text-secondary); }
+        [data-theme="light"] .calc-card input,
+        [data-theme="light"] .calc-card select {
+            background: var(--bg-primary);
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+        [data-theme="light"] .currency-toggle button {
+            background: var(--bg-primary);
+            border-color: var(--border-color);
+            color: var(--text-secondary);
+        }
+        [data-theme="light"] footer { border-color: var(--border-color); color: var(--text-secondary); }
+        [data-theme="light"] .score-legend span { color: var(--accent-blue-light); }
         * {
             margin: 0;
             padding: 0;
