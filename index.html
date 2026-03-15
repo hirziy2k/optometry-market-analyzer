@@ -965,8 +965,7 @@
                 <h3>&#127474;&#127486; Malaysia Resources</h3><a class="resource-link"
                     href="https://www.optometrists.org.my" target="_blank">AMO<span>Association of Malaysian
                         Optometrists</span></a><a class="resource-link" href="https://www.mdec.my/gain"
-                    target="_blank">MDEC GAIN<span>Digital innovation grants</span></a>
-            </div>
+window.scrollTo(0, 0);            </div>
             <div class="card">
                 <h3>&#127757; Global Resources</h3><a class="resource-link"
                     href="https://www.who.int/health-topics/blindness-and-vision-loss" target="_blank">WHO Vision
@@ -1133,6 +1132,8 @@ window.addEventListener('DOMContentLoaded', function() {
             
             window.scrollTo(0, 0);
         }
+
+        </script>
 
         <script>var currency = 'USD', MYR_RATE = 4.45; function showTab(id, btn) { document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); if (btn) btn.classList.add('active'); if (id === 'market') { setTimeout(function() { if (marketGrowthChartInstance) marketGrowthChartInstance.resize(); if (regionalChartInstance) regionalChartInstance.resize(); }, 10); } window.scrollTo(0, 0); } function setCurrency(c) { currency = c; document.getElementById('btn-usd').classList.toggle('active', c === 'USD'); document.getElementById('btn-myr').classList.toggle('active', c === 'MYR'); var r = document.getElementById('calc-result'); if (r.style.display === 'block') calcROI() } var nicheData = { ai: { b2c: { conv: .04, price: 12 }, b2b: { conv: .20, price: 400 } }, tele: { b2c: { conv: .06, price: 10 }, b2b: { conv: .22, price: 350 } }, ded: { b2c: { conv: .07, price: 8 }, b2b: { conv: .18, price: 250 } }, pm: { b2c: { conv: .05, price: 6 }, b2b: { conv: .25, price: 300 } } }; function calcROI() { var pEl = document.getElementById('patients'), errEl = document.getElementById('err-patients'), patients = parseInt(pEl.value); if (!patients || patients < 1) { errEl.style.display = 'block'; document.getElementById('calc-result').style.display = 'none'; return } errEl.style.display = 'none'; var niche = document.getElementById('niche-sel').value, model = document.getElementById('biz-model').value, d = nicheData[niche][model], annualUSD = Math.round(patients * d.conv * d.price * 12), display = currency === 'MYR' ? 'RM ' + Math.round(annualUSD * MYR_RATE).toLocaleString() + ' MYR' : '$' + annualUSD.toLocaleString() + ' USD'; document.getElementById('res-val').textContent = display + ' / year'; document.getElementById('res-detail').textContent = 'Based on ' + Math.round(d.conv * 100) + '% conversion at ' + (currency === 'MYR' ? 'RM' + Math.round(d.price * MYR_RATE) : '$' + d.price) + '/month average.'; document.getElementById('calc-result').style.display = 'block' }
     
